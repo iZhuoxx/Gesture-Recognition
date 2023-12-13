@@ -1,11 +1,17 @@
 # Gesture-Recognition
-An IoT-oriented Gesture Recognition Model Based on ResNet and Mediapipe
 
-## Description
-This projects developed the ResNet-Mediapipe hybrid model in order to implement gesture control of IoT devices. ResNet-Mediapipe can capture hand position in a variety of situations and recognize gestures in real-time with an accuracy rate of over 98.5% and recognition speed up to 45 fps.
+## Overview
+Gesture-Recognition is an advanced IoT-oriented gesture recognition model that combines the strengths of ResNet and Mediapipe. This hybrid model is adept at capturing hand positions and recognizing gestures in real-time, making it ideal for controlling IoT devices.
 
- ## Training
-The project contains all the code from data processing, data enhancement, model training, and model testing.
-This projcts also create a gesture dataset with more than 5700 pictures, and the training datasets has been uploaded to https://aistudio.baidu.com/datasetdetail/125664
 
-## Hope you can create a better model!
+## Key Features
+- **High Accuracy & Speed**: Boasts an impressive accuracy rate of over 98.5% and a recognition speed of up to 45 fps.
+- **ResNet-Mediapipe Integration**: Leverages the robustness of ResNet and the agility of Mediapipe for enhanced performance in diverse environments.
+- **IoT Compatibility**: Specially optimized for intuitive control of IoT devices through gesture recognition.
+
+## Dataset
+- Includes a comprehensive gesture dataset comprising more than 5700 images.
+- Training datasets are accessible at [AI Studio Dataset](https://aistudio.baidu.com/datasetdetail/125664).
+
+## Getting Started
+
