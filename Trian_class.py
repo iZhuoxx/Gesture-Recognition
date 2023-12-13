@@ -11,10 +11,7 @@ from sklearn.preprocessing import LabelBinarizer
 def train(model, epoch_num, data_loader, batch_size):
     use_gpu = False
     paddle.set_device('gpu:0') if use_gpu else paddle.set_device('cpu')
-    # 修改1- 初始化并行环境
-    # dist.init_parallel_env()
-    # 修改2- 增加paddle.DataParallel封装
-    # model = paddle.DataParallel(model)
+
     t1 = time.time()
     opt = paddle.optimizer.Adam(parameters=model.parameters(), learning_rate=0.001, weight_decay=paddle.regularizer.L2Decay(coeff=1e-5))
     epoch = epoch_num
@@ -50,8 +47,8 @@ def train(model, epoch_num, data_loader, batch_size):
 
         avgloss = runloss / batch_id
         print('[INFO] Generator Epoch %d avg_loss: %.3f\n' % (num + 1, avgloss))
-    # 保存模型参数
-    print("训练时间:", time.time() - t1)
+
+    print("training time:", time.time() - t1)
     paddle.jit.save(model, "model/hand_zhuo", input_spec=[InputSpec(shape=(1, 3, 24, 24), dtype='float32')])
     return iters, losses
 
