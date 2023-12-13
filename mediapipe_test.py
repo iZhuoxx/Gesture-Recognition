@@ -19,24 +19,6 @@ def cmpy(a):
     return a[1]
 
 
-def adjust(t0):
-    if t0 == 0:
-        t0 = 2
-    elif t0 == 1:
-        t0 = 5
-    elif t0 == 2:
-        t0 = 3
-    elif t0 == 3:
-        t0 = 6
-    elif t0 == 4:
-        t0 = 0
-    elif t0 == 5:
-        t0 = 4
-    elif t0 == 6:
-        t0 = 1
-    return t0
-
-
 hands = mp.solutions.hands.Hands(
     static_image_mode=False,
     max_num_hands=9,
@@ -72,8 +54,7 @@ while True:
     lock = 1
     ret, frame = cap.read()
     frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-    # 因为摄像头是镜像的，所以将摄像头水平翻转
-    # 不是镜像的可以不翻转
+
     frame = cv2.flip(frame, 1)
 
     results = hands.process(frame)
@@ -81,7 +62,7 @@ while True:
     frame = cv2.cvtColor(frame, cv2.COLOR_RGB2BGR)
     frame2 = frame
     start = time.time()
-    # 输出左右手
+
     # if results.multi_handedness:
     #     for hand_label in results.multi_handedness:
     #         print(hand_label)
@@ -123,14 +104,11 @@ while True:
 
             num0 = net(img)
             end = time.time()
-            seconds = end - start  # 处理一帧所用的时间
-            fps = 1 / seconds  # 一秒钟可以处理多少帧
-            fps = fps
+            seconds = end - start  
+            fps = 1 / seconds  
             fps = "%.2f fps" % fps
             # num = np.argmax(net(img))
-            num_true = adjust(np.argmax(num0))
-            num = np.argmax(num0)
-            # num = num.tolist()
+            num_true = np.argmax(num0)
             num0 = num0.tolist()
             probability = num0[0][num]
             if probability > 0.8:
@@ -154,15 +132,14 @@ while True:
                 if num_true != 0:
                     wait = []
 
-        # 关键点可视化
+
         mp_drawing.draw_landmarks(
             frame2, hand_landmarks, mp_hands.HAND_CONNECTIONS)
-        # 图片 添加的文字 位置 字体 字体大小 字体颜色 字体粗细
+
     if num_true != 7:
         cv2.putText(frame2, "Gesture is: {0}".format(num_true), (220, 50), cv2.FONT_HERSHEY_SIMPLEX, 0.75, (0, 0, 255), 2)
     # more = 50
 
-    # 标注手部识别框框
     cv2.rectangle(frame2, (int(x2_final), int(y2_final)), (int(x1_final), int(y1_final)), (255, 0, 0), 2)
     # cv2.rectangle(frame2, (int(x2+more), int(y2+more)), (int(x1-more), int(y1-more)), (0, 0, 255), 2)
     # print("x1 is :{0}".format(x1))
